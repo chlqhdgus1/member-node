@@ -4,7 +4,7 @@ var app = express();
 var member = require("./member.js");
 
 var items = [{
-    name: "우유",
+    name: "코코아",
     price: 2000
   },
   {

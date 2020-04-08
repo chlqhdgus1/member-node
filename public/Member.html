@@ -45,7 +45,7 @@
       $("#btnDelete").click(function(){
       var data = $("#f").serialize();
         $.ajax("delete",{data:data,success:function(){
-          alert("삭제성공");
+          alert("삭제성공!");
         }})
           listMember();
       })

@@ -6,6 +6,28 @@ app.use(express.static("public"));
 app.use(express.bodyParser());      //사용자로부터 파라메타를 받아드려 처리 할수 있음
 app.use(app.router);            //서버 사용자마다 다르게 하기 위해 router
 
+
+app.get("/blogList", function(request, response){
+
+  const client = new MongoClient(url);
+  client.connect(function(err, client) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+
+    const db = client.db(dbName);
+
+    const col = db.collection('articles');
+
+    col.find({}).toArray(function(err, docs) {
+
+      client.close();
+      response.send(docs);
+    });
+  });
+
+})
+
+
 app.all("/insertblog",function(request, response){
       var title = request.param("title");
       var content = request.param("content");

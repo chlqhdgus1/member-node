@@ -131,7 +131,6 @@ const client = new MongoClient(url);
   } catch(err) {
     console.log(err.stack);
   }
-  // Close connection
   client.close();
 })();
 }
