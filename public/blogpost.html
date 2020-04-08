@@ -10,7 +10,6 @@
         $("#btnSave").click(function(){
         var data = $("#f").serialize();
         $.ajax("insertblog" , {data:data, success:function(){
-                alert("완성1")
         }})
         })
 
