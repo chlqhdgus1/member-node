@@ -81,7 +81,7 @@ app.get("/member", function(request, response) {
 
 
     // Get first two documents that match the query
-    col.find({}).toArray(function(err, docs) {
+    col.find(doc).toArray(function(err, docs) {
       // assert.equal(null, err);
       // assert.equal(2, docs.length);
       client.close();
