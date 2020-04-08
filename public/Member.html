@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      var listMember = function() {
+        $("#tb").empty();
+        var keyword = $("#keyword").val();
+        var se = $("#se").val();
+        $.ajax("member",{data:{keyword:keyword,se:se},success:function(data) {
+            $.each(data, function(idx, m) {
+              var tr = $("<tr></tr>");
+              var td1 = $("<td></td>").html(m.name);
+              var td2 = $("<td></td>").html(m.age);
+              var td3 = $("<td></td>").html(m.addr);
+
+              tr.append(td1, td2, td3);
+              $("#tb").append(tr);
+
+
+              tr.on("click",function(){
+                $("#name").val(m.name);
+                $("#age").val(m.age);
+                $("#addr").val(m.addr);
+                $("#_id").val(m._id);
+
+              })
+            })
+          }
+        })
+      }
+
+      $("#btnUpdate").click(function(){
+        var data =$("#f").serialize();
+        $.ajax("update",{data:data,success:function(){
+
+        }})
+        listMember();
+      })
+
+      $("#btnDelete").click(function(){
+      var data = $("#f").serialize();
+        $.ajax("delete",{data:data,success:function(){
+          alert("삭제성공");
+        }})
+          listMember();
+      })
+
+      $("#btnAdd").click(function() {
+        var data = $("#f").serialize();
+        $.ajax("insertMember", {
+          data: data,
+          success: function(r) {
+            alert(r);
+            listMember();
+          }
+        });
+      });
+      listMember();
+
+    });
+  </script>
+</head>
+
+<body>
+  <h2>회원등록</h2>
+  <form id="f">
+    <fieldset>
+      <legend>이름</legend>
+      <input id="name" type="text" name="name">
+    </fieldset>
+
+    <fieldset>
+      <legend>나이</legend>
+      <input id="age" type="text" name="age">
+    </fieldset>
+
+    <fieldset>
+      <legend>주소</legend>
+      <input id="addr" type="text" name="addr">
+    </fieldset>
+    <input type="hidden" name="_id" id="_id">
+  </form>
+  <button id="btnAdd">등록</button>
+  <button id="btnUpdate">수정</button>
+  <button id="btnDelete">삭제</button>
+  <hr>
+
+
+  <select id="se" name="se">
+    <option value="name">이름</option>
+    <option value="age">나이</option>
+    <option value="addr">주소</option>
+  </select>
+    <input type="text" id="keyword" name="keyword"/>
+  <button id="btnsearch">검색</button>
+
+
+
+  <h2>회원목록</h2>
+  <table border="1" width="80%">
+    <thead>
+      <tr>
+        <td>이름</td>
+        <td>나이</td>
+        <td>주소</td>
+      </tr>
+    </thead>
+    <tbody id="tb">
+
+    </tbody>
+  </table>
+</body>
+
+</html>

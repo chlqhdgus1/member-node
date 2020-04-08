@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        //  $.ajax("/listMember",function(data){
+            $.getJSON("/listMember",function(data){
+              $.each(data, function(idx, m){
+                var td1 = $("<td></td>").html(m.name);
+                var td2 = $("<td></td>").html(m.age);
+                var td3 = $("<td></td>").html(m.addr);
+
+                var tr = $("<tr></tr>").append(td1,td2,td3);
+
+                $("#tb").append(tr)
+              })
+          })
+
+      })
+
+    </script>
+  </head>
+  <body>
+        <h2>회원목록</h2>
+        <hr>
+        <table id="tb" border="1" width=80%>
+            <tr>
+                <td>이름</td>
+                <td>나이</td>
+                <td>주소</td>
+            </tr>
+
+
+
+        </table>
+  </body>
+</html>
