@@ -58,7 +58,7 @@ app.get("/member", function(request, response) {
   console.log(keyword);
   var doc = {}
   if(keyword != null && keyword !=""){
-    doc[se] = keyword;
+    doc[se] = new RegExp(keyword,"i");
   }
 
   // Connection URL

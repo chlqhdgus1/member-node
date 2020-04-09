@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script type="text/javascript">
+        $(function(){
+          var search = location.search;
+          var _id = search.substring( search.indexOf("=")+1  );
+          $.ajax("blogDetail", {data:{_id:_id}, success:function(data){
+              var h2 = $("<h2></h2>").html(data.title);
+              var p = $("<p></p>").html(data.content);
+              $("#innercontentarea").append(h2, p);
+          }});
+        });
+      </script>
+  </head>
+  <body>
+      <div id="contentarea">
+        <div id="innercontentarea">
+          <h1>My Blogs</h1>
+        </div>
+      </div>
+  </body>
+</html>

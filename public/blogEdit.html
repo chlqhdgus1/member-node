@@ -5,34 +5,33 @@
   <meta charset="utf-8">
   <title></title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    #saved {
-      visibility: hidden;
-    }
-  </style>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script type="text/javascript">
     $(function() {
-
-      $("#write").click(function() {
-        $("#saved").css("visibility", "hidden");
-        $("#contentarea").css("visibility", "visible");
-
-        $("#title").val("");
-        $("#content").val("");
+      var search = location.search;
+      var _id = search.substring(search.indexOf("=") + 1);
+      $.ajax("blogDetail", {
+        data: {
+          _id: _id
+        },
+        success: function(data) {
+          $("#_id").val(data._id);
+          $("#title").val(data.title);
+          $("#content").val(data.content);
+        }
       });
 
-      $("#btnSave").click(function() {
+      $("#btnEdit").click(function() {
         var data = $("#f").serialize();
-        $.ajax("blogInsert", {
+        $.ajax("blogEdit", {
           data: data,
           success: function(r) {
-            $("#_id").html(r);
-            $("#saved").css("visibility", "visible");
-            $("#contentarea").css("visibility", "hidden");
+            if (r == "1") {
+              location.href = "dashboard.html";
+            }
           }
-        });
-      });
+        })
+      })
     });
   </script>
 </head>
@@ -40,7 +39,9 @@
 <body>
   <div id="contentarea">
     <div id="innercontentarea">
+      <h2>Edit Blog</h2>
       <form id="f">
+        <input type="hidden" id="_id" name="_id">
         <h3>Title</h3>
         <p>
           <input type="text" name="title" id="title">
@@ -52,15 +53,11 @@
         </p>
       </form>
       <p>
-        <button id="btnSave" type="button" name="button">Save</button>
+        <button id="btnEdit" type="button" name="button">Edit</button>
       </p>
     </div>
   </div>
 
-  <p id="saved">
-    Article saved. _id : <span id="_id"></span>
-    <a href="#" id="write">Write another one?</a>
-  </p>
 </body>
 
 </html>
