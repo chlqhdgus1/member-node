@@ -12,6 +12,32 @@ app.use(express.static("public"));
 app.use(express.bodyParser());
 app.use(app.router);
 
+app.get("/comment", function(request,response){
+  var _id = request.param("_id");
+  var commenter_name = request.param("commenter_name");
+  var commenter_email = request.param("commenter_email");
+  var comment = request.param("comment");
+  var posted_at = new Date();
+
+  var q = {_id:new ObjectID(_id)};
+  var doc = {commenter_name:commenter_name,
+              commenter_email:commenter_email,
+              comment:comment,
+              posted_at:posted_at}
+
+  MongoClient.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbo = db.db(dbName);
+                var newvalues = { $push: {comments:doc} };
+                dbo.collection("articles").updateOne(q, newvalues, function(err, res) {
+                  if (err) throw err;
+                  console.log("1 document updated");
+                  db.close();
+                  response.send("1");
+                });
+              });
+});
+
 
 app.get("/blogDetail", function(request, response){
       var _id = request.param("_id");

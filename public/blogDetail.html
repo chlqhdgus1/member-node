@@ -10,10 +10,30 @@
           var search = location.search;
           var _id = search.substring( search.indexOf("=")+1  );
           $.ajax("blogDetail", {data:{_id:_id}, success:function(data){
-              var h2 = $("<h2></h2>").html(data.title);
-              var p = $("<p></p>").html(data.content);
-              $("#innercontentarea").append(h2, p);
+              $("#title").html(data.title);
+              $("#content").html(data.content);
+              $("#_id").val(data._id);
+
+              var comments = data.comments;
+              if(comments != null){
+                  $(comments).each(function(idx, comment){
+                    var p1 = $("<span></span>").html( comment.commenter_name + "says...  " );
+                    var p2 =  $("<span></span>").html( comment.comment);
+                    var p3 =  $("<span></span>").html( comment.posted_at );
+                    var p = $("<p></p>");
+                    $(p).append(p1, p2, p3);
+                    $("#comment_list").append(p);
+                  });
+              }
           }});
+
+          $("#btnComment").click(function(){
+            var doc = $("#f").serialize();
+            $.ajax("comment",{data:doc, success:function(r){
+                location.href = "blogDetail.html?_id="+_id;
+            }});
+          });
+
         });
       </script>
   </head>
@@ -21,6 +41,26 @@
       <div id="contentarea">
         <div id="innercontentarea">
           <h1>My Blogs</h1>
+          <h2 id="title"></h2>
+          <p id="content"></p>
+          <div id="comment-section">
+              <h3>Comments</h3>
+              <div id="comment_list">
+              </div>
+              <h3>Post your comment</h3>
+              <form id="f">
+                  <span class="input-label">Name</span>
+                  <input type="text" name="commenter_name" class="commenter_name">
+                  <br/><br/>
+                  <span class="input-label">Email</span>
+                  <input type="email" name="commenter_email" class="commenter_email">
+                  <br/><br/>
+                  <textarea  class="comment" name="comment" rows="5"></textarea>
+                  <br/><br/>
+                  <input type="hidden" name="_id" id="_id">
+              </form>
+              <button type="button" name="button" id="btnComment">Save</button>
+          </div>
         </div>
       </div>
   </body>

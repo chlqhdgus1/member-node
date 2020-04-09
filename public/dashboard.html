@@ -8,7 +8,6 @@
     <script type="text/javascript">
         $(function(){
             var arr;
-
             $.ajax("blogList",{success:function(data){
                 arr = data;
                 $.each(arr, function(idx, item){
@@ -50,9 +49,9 @@
             <table class="articles" cellpading="0" cellspacing="0">
                 <thead>
                   <tr>
-                    <th width="55%">Title</th>
-                    <th width="27%">Created</th>
-                    <th width="*">Action</th>
+                    <th width="55%">Title</td>
+                    <th width="27%">Created</td>
+                    <th width="*">Action</td>
                   </tr>
                 </thead>
                 <tbody id="tbody">

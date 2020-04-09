@@ -1,4 +1,4 @@
-body {
+body{
   background-color: #e1ddd9;
   font-size: 12px;
   font-family: Verdana, Arial, sans-serif;
@@ -8,24 +8,41 @@ body {
   text-align: center;
 }
 
-div#contentarea {
+div#contentarea{
   text-align: left;
   vertical-align: middle;
   margin: 0px auto;
   padding: 0px;
-  width: 550px;
+  width: 800px;
   background-color: #ffffff;
   border: 1px #564b47;
 }
 
-div#innercontentarea {
+div#innercontentarea{
   padding: 10px 50px;
 }
 
-div#innercontentarea form input[type=text] {
+div#innercontentarea form input[type=text]{
   width: 435px;
 }
 
-div#innercontentarea form textarea[name=content] {
+div#innercontentarea form textarea[name=content]{
   width: 435px;
+}
+
+div#comment-section {
+  border-top: 1px solid #ccc;
+}
+
+div#comment-section form input.commenter_name{
+  width: 200px;
+}
+
+div#comment-section form textarea[name=comment]{
+  width: 255px;
+}
+
+span.input-label {
+  font-weight: bold;
+  padding-right: 10px;
 }
